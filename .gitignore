@@ -1,0 +1,12 @@
+# Maven
+**/log/
+**/target/
+
+#gedit
+*~
+*.bak
+
+#merge
+*.orig
+
+

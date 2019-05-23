@@ -1,11 +1,16 @@
 pipeline {
-  agent any
+  agent none
   tools {
       maven 'Maven3' 
   }
+  triggers {
+    pollSCM 'H/5 * * * *'
+  }
+
  
  stages { 
     stage('Show env') {
+        agent any
       steps {
         echo "ID Git : ${env.GIT_COMMIT}"
         sh "mvn clean package"
@@ -69,7 +74,15 @@ pipeline {
                   }
                 }
                 steps {
-                  echo "Data center is ${params.DataCenter}"
+                  echo "Data center is ${DataCenter}"
+                  script {
+                      if ( DataCenter.equals('Paris') ) {
+                          echo 'Pas de serveur désolé'
+                          currentBuild.result = 'UNSTABLE'
+                      } else {
+                          echo "C'est déployé"
+                      }
+                  }
                 }
              }
   }

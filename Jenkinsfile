@@ -46,13 +46,29 @@ pipeline {
                       withSonarQubeEnv('SONAR6') {
                         sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-weather.properties"
                       }
-                      timeout(time: 10, unit: 'MINUTES') {
+/*                      timeout(time: 10, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
-                      }
+                      }*/
                     }
                 }
                 
             }
+             stage('Validation métier') {
+               agent none
+               options {
+                  timeout(2)
+                }
+               input {
+                  message 'Vers quel data center voulez vous déployer ?'
+                  ok 'Déployer'
+                  parameters {
+                    choice choices: ['Paris', 'New York', 'Abidjan'], description: '', name: 'DataCenter'
+                  }
+                }
+                steps {
+                  echo "Data center is ${params.DataCenter}"
+                }
+             }
         }
     }
 }

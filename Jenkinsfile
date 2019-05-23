@@ -39,7 +39,7 @@ pipeline {
                     sh 'mvn clean verify'
                     script {
 
-                      def scannerHome = tool 'SSCAN3'
+                      def scannerHome = tool name: 'SSCAN3', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 
                       withSonarQubeEnv('SONAR6') {
                         sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-weather.properties"

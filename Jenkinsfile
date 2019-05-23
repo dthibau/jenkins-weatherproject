@@ -53,7 +53,10 @@ pipeline {
                 }
                 
             }
-             stage('Validation métier') {
+             
+        }
+    }
+    stage('Validation métier') {
                agent none
                options {
                   timeout(2)
@@ -69,7 +72,5 @@ pipeline {
                   echo "Data center is ${params.DataCenter}"
                 }
              }
-        }
-    }
-}
+  }
 }

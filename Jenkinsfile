@@ -3,19 +3,19 @@ pipeline {
   tools {
       maven 'Maven3' 
   }
- stages {
-    stage('Build') {
+ 
+ stages { 
+    stage('Show env') {
       steps {
-        sh 'mvn -Dmaven.test.failure.ignore clean package'
+        echo "ID Git : ${env.GIT_COMMIT}"
       }
     }
     
     
     
-    stage('Results') {
+    stage('Tests') {
       steps {
-        junit '**/target/surefire-reports/TEST-*.xml'
-        archiveArtifacts '**/target/*.jar,**/target/*.war'
+       echo "Test staring"
       }
    }
 }

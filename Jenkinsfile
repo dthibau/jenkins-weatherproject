@@ -38,10 +38,9 @@ pipeline {
                     echo "On Branch B" 
                     sh 'mvn clean verify'
                     script {
-                      def scannerHome
-                      environment {
-                          scannerHome = tool 'SSCAN3'
-                      }
+
+                      def scannerHome = tool 'SSCAN3'
+
                       withSonarQubeEnv('SONAR6') {
                         sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-weather.properties"
                       }

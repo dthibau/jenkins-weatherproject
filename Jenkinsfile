@@ -29,11 +29,13 @@ pipeline {
     stage('Phases parallèles') {
         parallel {
             stage("Tests d'intégration") {
+                agent any
                 steps {  
-                    sh 'mvn -Pintegration integration-test'  
+                    sh 'mvn -Pintegration clean integration-test'  
                 }
             }
             stage('Analyse qualité') {
+                agent any
                 steps {  
                     echo "On Branch B" 
                     sh 'mvn clean verify'
